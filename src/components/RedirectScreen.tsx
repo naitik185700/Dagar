@@ -8,6 +8,8 @@ interface RedirectScreenProps {
   onRedirectClick: (platform: "whatsapp" | "telegram") => void;
   onOpenSettings: () => void;
   onOpenQR: () => void;
+  onOpenTerms: () => void;
+  onOpenPrivacy: () => void;
 }
 
 export const RedirectScreen: React.FC<RedirectScreenProps> = ({
@@ -15,6 +17,8 @@ export const RedirectScreen: React.FC<RedirectScreenProps> = ({
   onRedirectClick,
   onOpenSettings,
   onOpenQR,
+  onOpenTerms,
+  onOpenPrivacy,
 }) => {
   const urlParams = new URLSearchParams(window.location.search);
   const isAdmin = urlParams.get("admin") === "1";
@@ -44,14 +48,14 @@ export const RedirectScreen: React.FC<RedirectScreenProps> = ({
       {/* Main Grid Content */}
       <div className="flex flex-col items-center mb-xl mt-xl z-20 relative">
         <h1 className="font-display-lg text-display-lg text-primary text-center mb-xs drop-shadow-[0_0_15px_rgba(255,215,0,0.6)] font-black uppercase tracking-widest italic">
-          VIP Hosts
+          Exclusive VIP Hosts
         </h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[512px] text-center uppercase tracking-wide text-white font-semibold shadow-black drop-shadow-md">
-          Connect directly with our elite dealers via WhatsApp or Telegram.
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[600px] text-center uppercase tracking-wide text-white font-semibold shadow-black drop-shadow-md">
+          Get instant access to premium rewards, faster payouts, and personalized service via WhatsApp or Telegram.
         </p>
       </div>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg z-20 mb-2xl">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg z-20 mb-12">
         {profiles.map((profile) => (
           <ProfileCard
             key={profile.id}
@@ -61,11 +65,21 @@ export const RedirectScreen: React.FC<RedirectScreenProps> = ({
         ))}
       </div>
 
+      {/* Footer */}
+      <footer className="w-full flex flex-col items-center justify-center gap-2 mt-8 z-20 text-on-surface-variant/60 text-sm font-medium">
+        <div className="flex gap-4">
+          <button onClick={onOpenTerms} className="hover:text-primary transition-colors cursor-pointer">Terms & Conditions</button>
+          <span>|</span>
+          <button onClick={onOpenPrivacy} className="hover:text-primary transition-colors cursor-pointer">Privacy Policy</button>
+        </div>
+        <p>&copy; 2022-{new Date().getFullYear()} kineticarena.online All rights reserved.</p>
+      </footer>
+
       {/* Ambient background decoration */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-luminosity" 
-          style={{ backgroundImage: "url('/bg-casino.png')" }} 
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-luminosity"
+          style={{ backgroundImage: "url('/bg-casino.png')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         <div className="absolute top-0 right-0 w-full h-full bg-radial-gradient-primary opacity-20 blur-3xl animate-pulse-slow"></div>
